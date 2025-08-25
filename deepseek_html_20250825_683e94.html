@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARDS Review & GitHub Publishing Guide</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: #f5f9fc;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #1a6db1 0%, #0a4a82 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .tabs {
+            display: flex;
+            margin-bottom: 20px;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        
+        .tab {
+            padding: 15px 20px;
+            flex: 1;
+            text-align: center;
+            cursor: pointer;
+            transition: background 0.3s;
+            font-weight: 600;
+        }
+        
+        .tab.active {
+            background: #1a6db1;
+            color: white;
+        }
+        
+        .tab:hover:not(.active) {
+            background: #e3f2fd;
+        }
+        
+        .content {
+            display: none;
+            background: white;
+            border-radius: 10px;
+            padding: 2rem;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+            margin-bottom: 2rem;
+        }
+        
+        .content.active {
+            display: block;
+        }
+        
+        h2 {
+            color: #0a4a82;
+            margin: 2rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid #e3f2fd;
+        }
+        
+        h2:first-child {
+            margin-top: 0;
+        }
+        
+        h3 {
+            color: #1a6db1;
+            margin: 1.5rem 0 0.8rem;
+        }
+        
+        p {
+            margin-bottom: 1rem;
+        }
+        
+        .definition-box {
+            background: #e3f2fd;
+            border-left: 5px solid #1a6db1;
+            padding: 1.5rem;
+            border-radius: 5px;
+            margin: 1.5rem 0;
+        }
+        
+        .reference {
+            background: #f5f5f5;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+        }
+        
+        .reference h4 {
+            margin-bottom: 0.3rem;
+            color: #1a6db1;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+        }
+        
+        th, td {
+            padding: 12px 15px;
+            text-align: left;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        th {
+            background-color: #e3f2fd;
+            color: #0a4a82;
+        }
+        
+        tr:hover {
+            background-color: #f9f9f9;
+        }
+        
+        .highlight {
+            background-color: #fff8e1;
+            padding: 0.2rem 0.4rem;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        
+        .key-points {
+            background: #e8f5e9;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+        }
+        
+        .key-points h3 {
+            color: #2e7d32;
+            margin-top: 0;
+        }
+        
+        .key-points ul {
+            margin-left: 1.5rem;
+        }
+        
+        .key-points li {
+            margin-bottom: 0.5rem;
+        }
+        
+        .guideline-box {
+            background: #ffecb3;
+            padding: 1rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            border-left: 5px solid #ffc107;
+        }
+        
+        .guideline-box h4 {
+            color: #7d6608;
+            margin-bottom: 0.5rem;
+        }
+        
+        .footer {
+            text-align: center;
+            margin-top: 3rem;
+            padding: 2rem;
+            color: #666;
+            font-size: 0.9rem;
+        }
+        
+        .step-box {
+            background: #f0f7fd;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border-left: 5px solid #1a6db1;
+        }
+        
+        .step-number {
+            background: #1a6db1;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            overflow-x: auto;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .command {
+            color: #ff79c6;
+        }
+        
+        .comment {
+            color: #6272a4;
+        }
+        
+        .note {
+            background: #fff8e1;
+            padding: 1rem;
+            border-radius: 5px;
+            margin: 1rem 0;
+            border-left: 4px solid #ffc107;
+        }
+        
+        @media (max-width: 768px) {
+            .tabs {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1><i class="fas fa-lungs-virus"></i> ARDS Review & GitHub Publishing Guide</h1>
+            <p>Comprehensive Medical Review and Step-by-Step Guide to GitHub Publishing</p>
+        </header>
+        
+        <div class="tabs">
+            <div class="tab active" data-tab="ards-review">ARDS Review</div>
+            <div class="tab" data-tab="github-guide">GitHub Guide</div>
+        </div>
+        
+        <div class="content active" id="ards-review">
+            <section id="definition">
+                <h2><i class="fas fa-book-medical"></i> Definition and Evolution</h2>
+                <p>Acute Respiratory Distress Syndrome (ARDS) is a life-threatening form of respiratory failure characterized by diffuse alveolar damage and increased pulmonary vascular permeability.</p>
+                
+                <div class="definition-box">
+                    <h3>Berlin Definition (2012) - Current Diagnostic Criteria</h3>
+                    <ul>
+                        <li><strong>Timing:</strong> Within 1 week of a known clinical insult or new/worsening respiratory symptoms</li>
+                        <li><strong>Chest imaging:</strong> Bilateral opacities not fully explained by effusions, lobar/lung collapse, or nodules</li>
+                        <li><strong>Origin of edema:</strong> Respiratory failure not fully explained by cardiac failure or fluid overload</li>
+                        <li><strong>Oxygenation impairment (with PEEP ≥5 cm H₂O):</strong>
+                            <ul>
+                                <li><strong>Mild:</strong> 200 mmHg < PaO₂/FiO₂ ≤ 300 mmHg</li>
+                                <li><strong>Moderate:</strong> 100 mmHg < PaO₂/FiO₂ ≤ 200 mmHg</li>
+                                <li><strong>Severe:</strong> PaO₂/FiO₂ ≤ 100 mmHg</li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                
+                <p>The Berlin Definition refined the previous American-European Consensus Conference (AECC) criteria, improving reliability and validity for predicting outcomes.</p>
+                
+                <div class="reference">
+                    <h4>Key Reference:</h4>
+                    <p>ARDS Definition Task Force. Acute respiratory distress syndrome: the Berlin Definition. JAMA 2012;307(23):2526-33.</p>
+                </div>
+            </section>
+            
+            <section id="epidemiology">
+                <h2><i class="fas fa-chart-line"></i> Epidemiology</h2>
+                <p>ARDS represents a significant burden in critical care medicine with an estimated incidence of 10-86 cases per 100,000 person-years globally.</p>
+                
+                <table>
+                    <tr>
+                        <th>Severity</th>
+                        <th>Incidence (%)</th>
+                        <th>Mortality (%)</th>
+                    </tr>
+                    <tr>
+                        <td>Mild</td>
+                        <td>30-50%</td>
+                        <td>27%</td>
+                    </tr>
+                    <tr>
+                        <td>Moderate</td>
+                        <td>30-40%</td>
+                        <td>32%</td>
+                    </tr>
+                    <tr>
+                        <td>Severe</td>
+                        <td>10-20%</td>
+                        <td>45%</td>
+                    </tr>
+                </table>
+                
+                <p>The COVID-19 pandemic dramatically increased the global incidence of ARDS, with approximately 20-40% of hospitalized COVID-19 patients developing ARDS.</p>
+            </section>
+            
+            <section id="pathophysiology">
+                <h2><i class="fas fa-lungs"></i> Pathophysiology</h2>
+                <p>ARDS is characterized by diffuse alveolar damage resulting from an uncontrolled inflammatory response to direct or indirect lung injury.</p>
+                
+                <h3>Key Pathophysiological Mechanisms:</h3>
+                <ul>
+                    <li><strong>Alveolar-capillary barrier disruption:</strong> Increased permeability leads to protein-rich pulmonary edema</li>
+                    <li><strong>Surfactant dysfunction:</strong> Loss of surface tension-reducing properties promotes alveolar collapse</li>
+                    <li><strong>Inflammatory mediator release:</strong> Neutrophil infiltration and cytokine release cause tissue damage</li>
+                    <li><strong>Coagulation abnormalities:</strong> Intra-alveolar fibrin deposition and microvascular thrombosis</li>
+                    <li><strong>Ventilator-induced lung injury (VILI):</strong> Mechanical ventilation can exacerbate lung injury through volutrauma, barotrauma, and atelectrauma</li>
+                </ul>
+                
+                <div class="key-points">
+                    <h3><i class="fas fa-lightbulb"></i> Clinical Pearl: The "Baby Lung" Concept</h3>
+                    <p>The aerated lung in ARDS is not a small, healthy lung but rather a small, normally aerated compartment within a diseased, non-aerated lung. This explains why even low tidal volumes can cause volutrauma if not adjusted for the reduced aerated volume.</p>
+                </div>
+            </section>
+            
+            <section id="management">
+                <h2><i class="fas fa-stethoscope"></i> Management</h2>
+                <p>The management of ARDS requires a multifaceted approach focusing on treating the underlying cause, supportive care, and lung-protective strategies.</p>
+                
+                <h3>Ventilatory Management</h3>
+                
+                <div class="guideline-box">
+                    <h4><i class="fas fa-clipboard-list"></i> SCCM/ESICM 2023 Guideline Recommendations:</h4>
+                    <ul>
+                        <li>Use <span class="highlight">low tidal volume ventilation (4-8 mL/kg predicted body weight)</span> and target plateau pressures <30 cm H₂O (strong recommendation)</li>
+                        <li>Use <span class="highlight">prone positioning for >12 hours daily</span> in severe ARDS (strong recommendation)</li>
+                        <li>Use a <span class="highlight">conservative fluid strategy</span> after initial resuscitation (strong recommendation)</li>
+                        <li>Use <span class="highlight">neuromuscular blocking agents</span> for 48 hours in early severe ARDS (weak recommendation)</li>
+                        <li>Consider <span class="highlight">corticosteroids</span> in moderate-to-severe ARDS (weak recommendation)</li>
+                    </ul>
+                </div>
+                
+                <h4>Lung-Protective Ventilation Strategy:</h4>
+                <table>
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Recommendation</th>
+                        <th>Rationale</th>
+                    </tr>
+                    <tr>
+                        <td>Tidal Volume</td>
+                        <td>4-8 mL/kg PBW</td>
+                        <td>Reduces volutrauma and mortality</td>
+                    </tr>
+                    <tr>
+                        <td>Plateau Pressure</td>
+                        <td><30 cm H₂O</td>
+                        <td>Reduces barotrauma</td>
+                    </tr>
+                    <tr>
+                        <td>PEEP</td>
+                        <td>Individualized titration</td>
+                        <td>Prevents atelectrauma while avoiding overdistension</td>
+                    </tr>
+                    <tr>
+                        <td>Driving Pressure</td>
+                        <td><14 cm H₂O</td>
+                        <td>Strong predictor of survival</td>
+                    </tr>
+                    <tr>
+                        <td>FiO₂</td>
+                        <td>Minimize to <60% when possible</td>
+                        <td>Reduces oxygen toxicity</td>
+                    </tr>
+                </table>
+                
+                <div class="reference">
+                    <h4>Key Reference:</h4>
+                    <p>Griffiths MJD, et al. Guidelines on the management of acute respiratory distress syndrome. BMJ Open Respir Res 2023;10:e001461.</p>
+                </div>
+                
+                <h3>Rescue Therapies for Refractory Hypoxemia</h3>
+                <ul>
+                    <li><strong>Neuromuscular blockade:</strong> Early, short-term use in severe ARDS improves oxygenation and reduces VILI</li>
+                    <li><strong>Prone positioning:</strong> Improves ventilation-perfusion matching and reduces mortality in severe ARDS</li>
+                    <li><strong>ECMO (Extracorporeal Membrane Oxygenation):</strong> Consider in selected patients with refractory hypoxemia despite optimal management</li>
+                    <li><strong>Inhaled pulmonary vasodilators:</strong> May improve oxygenation but no mortality benefit demonstrated</li>
+                </ul>
+            </section>
+            
+            <section id="prognosis">
+                <h2><i class="fas fa-procedures"></i> Prognosis and Outcomes</h2>
+                <p>Despite advances in management, ARDS continues to have significant mortality and long-term morbidity.</p>
+                
+                <h3>Mortality Predictors:</h3>
+                <ul>
+                    <li>Older age</li>
+                    <li>Non-pulmonary organ dysfunction</li>
+                    <li>Severity of hypoxemia (PaO₂/FiO₂ ratio)</li>
+                    <li>Underlying etiology (worse with direct lung injury)</li>
+                    <li>Comorbidities (especially chronic liver disease)</li>
+                </ul>
+                
+                <h3>Long-Term Sequelae (Post-Intensive Care Syndrome):</h3>
+                <ul>
+                    <li><strong>Physical:</strong> Muscle weakness, functional impairment, reduced exercise tolerance</li>
+                    <li><strong>Pulmonary:</strong> Restrictive lung disease, reduced diffusion capacity</li>
+                    <li><strong>Cognitive:</strong> Impaired memory, executive function, and attention</li>
+                    <li><strong>Psychological:</strong> Depression, anxiety, and post-traumatic stress disorder</li>
+                </ul>
+                
+                <p>Follow-up care should include multidisciplinary rehabilitation addressing physical, cognitive, and psychological impairments.</p>
+            </section>
+        </div>
+        
+        <div class="content" id="github-guide">
+            <h2><i class="fab fa-github"></i> Step-by-Step Guide to Publishing on GitHub</h2>
+            
+            <div class="step-box">
+                <h3><span class="step-number">1</span> Create a GitHub Account</h3>
+                <p>If you don't have a GitHub account, go to <a href="https://github.com/" target="_blank">github.com</a> and sign up for a free account.</p>
+            </div>
+            
+            <div class="step-box">
+                <h3><span class="step-number">2</span> Create a New Repository</h3>
+                <p>After logging in, click on the "+" icon in the top right corner and select "New repository".</p>
+                <ul>
+                    <li>Name your repository (e.g., "ards-review")</li>
+                    <li>Add a description (optional but recommended)</li>
+                    <li>Choose "Public" (required for free GitHub Pages)</li>
+                    <li>Check "Add a README file"</li>
+                    <li>Click "Create repository"</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h3><span class="step-number">3</span> Upload Your HTML File</h3>
+                <p>In your newly created repository:</p>
+                <ul>
+                    <li>Click on "Add file" → "Upload files"</li>
+                    <li>Drag and drop your HTML file or click to select it</li>
+                    <li>Scroll down and click "Commit changes"</li>
+                </ul>
+                
+                <div class="note">
+                    <h4><i class="fas fa-lightbulb"></i> Important Note:</h4>
+                    <p>For GitHub Pages to work correctly, your main HTML file must be named <strong>index.html</strong> and be in the root directory of your repository.</p>
+                </div>
+            </div>
+            
+            <div class="step-box">
+                <h3><span class="step-number">4</span> Enable GitHub Pages</h3>
+                <p>Go to your repository settings:</p>
+                <ul>
+                    <li>Click on the "Settings" tab in your repository</li>
+                    <li>In the left sidebar, click on "Pages"</li>
+                    <li>Under "Source", select "Deploy from a branch"</li>
+                    <li>Under "Branch", select "main" and folder "/ (root)"</li>
+                    <li>Click "Save"</li>
+                </ul>
+            </div>
+            
+            <div class="step-box">
+                <h3><span class="step-number">5</span> Wait for Deployment</h3>
+                <p>It may take a few minutes for your site to be published. Refresh the GitHub Pages settings page until you see a green confirmation message with your site's URL.</p>
+                <p>Your website will be available at: <code>https://[your-username].github.io/[repository-name]/</code></p>
+            </div>
+            
+            <div class="step-box">
+                <h3><span class="step-number">6</span> Update Your Content</h3>
+                <p>To update your webpage in the future:</p>
+                <ul>
+                    <li>Go to your repository</li>
+                    <li>Click on your HTML file</li>
+                    <li>Click the pencil icon to edit</li>
+                    <li>Make your changes and commit them</li>
+                    <li>GitHub Pages will automatically update your site (may take a few minutes)</li>
+                </ul>
+            </div>
+            
+            <div class="key-points">
+                <h3><i class="fas fa-star"></i> Pro Tips</h3>
+                <ul>
+                    <li>You can use a custom domain name if you have one</li>
+                    <li>GitHub Pages supports custom themes and Jekyll templates</li>
+                    <li>Your repository can contain multiple HTML files for a multi-page website</li>
+                    <li>You can collaborate with others by adding them as contributors</li>
+                </ul>
+            </div>
+            
+            <div class="code-block">
+                <p><span class="comment"># Optional: Using Git commands for advanced users</span></p>
+                <p><span class="command">git clone</span> https://github.com/your-username/your-repository.git</p>
+                <p><span class="command">cd</span> your-repository</p>
+                <p><span class="command">echo</span> "Your HTML content" > index.html</p>
+                <p><span class="command">git add</span> index.html</p>
+                <p><span class="command">git commit</span> -m "Add ARDS review webpage"</p>
+                <p><span class="command">git push</span></p>
+            </div>
+        </div>
+        
+        <div class="footer">
+            <p>This information is intended for healthcare professionals only. Always consult current guidelines and apply clinical judgment.</p>
+            <p>© 2023 Critical Care Reviews. All rights reserved.</p>
+        </div>
+    </div>
+
+    <script>
+        // Tab functionality
+        const tabs = document.querySelectorAll('.tab');
+        const contents = document.querySelectorAll('.content');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                const target = tab.getAttribute('data-tab');
+                
+                // Remove active class from all tabs and contents
+                tabs.forEach(t => t.classList.remove('active'));
+                contents.forEach(c => c.classList.remove('active'));
+                
+                // Add active class to clicked tab and corresponding content
+                tab.classList.add('active');
+                document.getElementById(target).classList.add('active');
+            });
+        });
+        
+        // Smooth scrolling for navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                window.scrollTo({
+                    top: targetElement.offsetTop - 20,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
+</body>
+</html>
